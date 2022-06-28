@@ -45,6 +45,7 @@ class Browser:
             options = Options()
             prefs = {"download.default_directory": self.atta_path}
             options.add_experimental_option("prefs", prefs)
+            options.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
             if platform.system() == 'Linux':
                 options.add_argument('--no-sandbox')
             self.driver = webdriver.Chrome(
@@ -70,6 +71,17 @@ class Browser:
                 service_log_path=os.path.join(os.environ.get('AutoPaladin'), 'log', 'firefox.log'),
                 firefox_profile=profile)
             logger.info('使用火狐浏览器')
+        elif self.browsertype == 'edge':
+            if platform.system() != 'Windows':
+                logger.cri('非Windows操作系统不支持edge浏览器')
+                sys.exit(1)
+            try:
+                os.system('taskkill /f /im msedgedriver.exe')
+                # os.system('taskkill /f /im msedge.exe')
+            except:
+                pass
+            self.driver = webdriver.Edge(executable_path=os.path.join(os.environ.get('AutoPaladin'), 'resource', 'msedgedriver' + exesuf))
+            logger.info('使用edge浏览器')
         elif self.browsertype == 'ie':
             if platform.system() != 'Windows':
                 logger.cri('非Windows操作系统不支持IE浏览器')
