@@ -22,7 +22,7 @@ class Paladin:
             url: 帕拉丁访问地址
             name: 用户名
             pwd: 密码
-            browser: 浏览器，不指定则使用配置文件，支持的类型：chrome、firefox、ie
+            browser: 浏览器，不指定则使用配置文件，支持的类型：chrome、firefox、ie、edge
         """
         self.start_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         logger.info('当前时间%s' % self.start_time)
