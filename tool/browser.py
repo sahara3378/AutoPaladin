@@ -9,8 +9,6 @@ import platform
 from selenium import webdriver
 from selenium.webdriver import ActionChains, FirefoxProfile
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from tool import logger, configs
@@ -80,7 +78,8 @@ class Browser:
                 # os.system('taskkill /f /im msedge.exe')
             except:
                 pass
-            self.driver = webdriver.Edge(executable_path=os.path.join(os.environ.get('AutoPaladin'), 'resource', 'msedgedriver' + exesuf))
+            self.driver = webdriver.Edge(
+                executable_path=os.path.join(os.environ.get('AutoPaladin'), 'resource', 'msedgedriver' + exesuf))
             logger.info('使用edge浏览器')
         elif self.browsertype == 'ie':
             if platform.system() != 'Windows':
@@ -190,41 +189,8 @@ class Browser:
         if parent_element:
             logger.debug('从父级元素开始查找...%s' % str(parent_element))
         try:
-            if locator_type == By.ID:
-                return parent_element.find_element_by_id(
-                    locator_key) if parent_element else self.driver.find_element_by_id(
-                    locator_key)
-            elif locator_type == By.NAME:
-                return parent_element.find_element_by_name(
-                    locator_key) if parent_element else self.driver.find_element_by_name(
-                    locator_key)
-            elif locator_type == By.XPATH:
-                return parent_element.find_element_by_xpath(
-                    locator_key) if parent_element else self.driver.find_element_by_xpath(
-                    locator_key)
-            elif locator_type == By.LINK_TEXT:
-                return parent_element.find_element_by_link_text(
-                    locator_key) if parent_element else self.driver.find_element_by_link_text(
-                    locator_key)
-            elif locator_type == By.PARTIAL_LINK_TEXT:
-                return parent_element.find_element_by_partial_link_text(
-                    locator_key) if parent_element else self.driver.find_element_by_partial_link_text(
-                    locator_key)
-            elif locator_type == By.TAG_NAME:
-                return parent_element.find_element_by_tag_name(
-                    locator_key) if parent_element else self.driver.find_element_by_tag_name(
-                    locator_key)
-            elif locator_type == By.CLASS_NAME:
-                return parent_element.find_element_by_class_name(
-                    locator_key) if parent_element else self.driver.find_element_by_class_name(
-                    locator_key)
-            elif locator_type == By.CSS_SELECTOR:
-                return parent_element.find_element_by_css_selector(
-                    locator_key) if parent_element else self.driver.find_element_by_css_selector(
-                    locator_key)
-            else:
-                logger.error('不支持的定位类型')
-                return None
+            return parent_element.find_element(locator_type, locator_key) \
+                if parent_element else self.driver.find_element(locator_type, locator_key)
         except Exception as ex:
             logger.error('定位元素出现异常：%s-->--%s' % (locator_type, locator_key))
             logger.error(ex)
@@ -245,41 +211,8 @@ class Browser:
         if parent_element:
             logger.debug('从父级元素开始查找...%s' % str(parent_element))
         try:
-            if locator_type == By.ID:
-                return parent_element.find_elements_by_id(
-                    locator_key) if parent_element else self.driver.find_elements_by_id(
-                    locator_key)
-            elif locator_type == By.NAME:
-                return parent_element.find_elements_by_name(
-                    locator_key) if parent_element else self.driver.find_elements_by_name(
-                    locator_key)
-            elif locator_type == By.XPATH:
-                return parent_element.find_elements_by_xpath(
-                    locator_key) if parent_element else self.driver.find_elements_by_xpath(
-                    locator_key)
-            elif locator_type == By.LINK_TEXT:
-                return parent_element.find_elements_by_link_text(
-                    locator_key) if parent_element else self.driver.find_elements_by_link_text(
-                    locator_key)
-            elif locator_type == By.PARTIAL_LINK_TEXT:
-                return parent_element.find_elements_by_partial_link_text(
-                    locator_key) if parent_element else self.driver.find_elements_by_partial_link_text(
-                    locator_key)
-            elif locator_type == By.TAG_NAME:
-                return parent_element.find_elements_by_tag_name(
-                    locator_key) if parent_element else self.driver.find_elements_by_tag_name(
-                    locator_key)
-            elif locator_type == By.CLASS_NAME:
-                return parent_element.find_elements_by_class_name(
-                    locator_key) if parent_element else self.driver.find_elements_by_class_name(
-                    locator_key)
-            elif locator_type == By.CSS_SELECTOR:
-                return parent_element.find_elements_by_css_selector(
-                    locator_key) if parent_element else self.driver.find_elements_by_css_selector(
-                    locator_key)
-            else:
-                logger.error('不支持的定位类型')
-                return None
+            return parent_element.find_elements(locator_type, locator_key) \
+                if parent_element else self.driver.find_elements(locator_type, locator_key)
         except Exception as ex:
             logger.error('定位元素出现异常：%s-->--%s' % (locator_type, locator_key))
             logger.error(ex)
