@@ -1,6 +1,5 @@
 # coding=utf-8
 import sys, os, base64
-import traceback
 from configparser import ConfigParser
 from tool import logger
 
@@ -15,9 +14,7 @@ def read():
         cp.read(spath, encoding="gb2312")
         return cp.sections()
     except Exception as ex:
-        logger.error('读取系统配置文件sys.cfg失败')
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('读取系统配置文件sys.cfg失败',ex)
         sys.exit(1)
 
 
@@ -40,9 +37,7 @@ def set_config(section, key, value):
         logger.info('修改了系统配置文件:%s.%s=%s' % (section, key, value))
         return True
     except Exception as ex:
-        logger.error('修改系统配置文件sys.cfg失败')
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('修改系统配置文件sys.cfg失败',ex)
         return False
 
 

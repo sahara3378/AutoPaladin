@@ -22,7 +22,7 @@ def init():
         logger.info('已登录邮箱:%s' % user)
         return True
     except Exception as ex:
-        logger.error('邮件初始化错误!' + ex)
+        logger.error('邮件初始化错误!',ex)
         return False
 
 
@@ -65,8 +65,8 @@ def has_email(subject_key, folder=None, from_time='sysdate'):
         from_time = time.strftime('%Y-%m-%d 00:00:00', time.localtime(time.time()))
     try:
         from_timestamp = int(time.mktime(time.strptime(from_time, '%Y-%m-%d %H:%M:%S')))
-    except:
-        logger.error('时间参数错误!形如 2020-9-12 13:00:00')
+    except Exception as ex:
+        logger.error('时间参数错误!形如 2020-9-12 13:00:00',ex)
         return False
 
     if init():
@@ -75,7 +75,7 @@ def has_email(subject_key, folder=None, from_time='sysdate'):
             conn.select(folder)
             typ, data = conn.search(None, '(FROM "")')
         except Exception as ex:
-            logger.error('邮箱文件夹读取错误,文件夹：%s' % folder)
+            logger.error('邮箱文件夹读取错误,文件夹：%s' % folder,ex)
             return False
 
         # 遍历邮件

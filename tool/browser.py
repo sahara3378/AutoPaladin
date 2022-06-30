@@ -3,7 +3,6 @@ import os
 import shutil
 import sys
 import time
-import traceback
 import platform
 
 from selenium import webdriver
@@ -143,9 +142,7 @@ class Browser:
                     self.driver.switch_to.frame(frame)
                     return True
                 except Exception as ex:
-                    logger.error('浏览器切换frame出现异常！')
-                    logger.error(ex)
-                    traceback.print_stack()
+                    logger.error('浏览器切换frame出现异常！', ex)
                     return False
             else:
                 logger.debug('浏览器切换到默认窗口...')
@@ -168,9 +165,7 @@ class Browser:
             logger.debug('浏览器执行脚本：%s' % script)
             return True
         except Exception as ex:
-            logger.error('浏览器执行脚本异常！%s' % script)
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('浏览器执行脚本异常！%s' % script, ex)
             return False
 
     def find_element(self, locator_type, locator_key, parent_element=None):
@@ -192,8 +187,7 @@ class Browser:
             return parent_element.find_element(locator_type, locator_key) \
                 if parent_element else self.driver.find_element(locator_type, locator_key)
         except Exception as ex:
-            logger.error('定位元素出现异常：%s-->--%s' % (locator_type, locator_key))
-            logger.error(ex)
+            logger.error('定位元素出现异常：%s-->--%s' % (locator_type, locator_key), ex)
             return None
 
     def find_elements(self, locator_type, locator_key, parent_element=None):
@@ -214,8 +208,7 @@ class Browser:
             return parent_element.find_elements(locator_type, locator_key) \
                 if parent_element else self.driver.find_elements(locator_type, locator_key)
         except Exception as ex:
-            logger.error('定位元素出现异常：%s-->--%s' % (locator_type, locator_key))
-            logger.error(ex)
+            logger.error('定位元素出现异常：%s-->--%s' % (locator_type, locator_key),ex)
             return None
 
     def type(self, element, word):
@@ -239,9 +232,7 @@ class Browser:
             logger.info('浏览器输入：%s' % word)
             return True
         except Exception as ex:
-            logger.error('浏览器输入异常：%s' % word)
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('浏览器输入异常：%s' % word,ex)
             return False
 
     def click(self, element):
@@ -259,9 +250,7 @@ class Browser:
             logger.info('浏览器点击：%s' % element)
             return True
         except Exception as ex:
-            logger.error('浏览器点击：%s异常！' % element)
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('浏览器点击：%s异常！' % element,ex)
             return False
 
     def double_click(self, element):
@@ -280,9 +269,7 @@ class Browser:
             logger.info('浏览器双击：%s' % element)
             return True
         except Exception as ex:
-            logger.error('浏览器双击：%s异常！' % element)
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('浏览器双击：%s异常！' % element,ex)
             return False
 
     def wait_for_element(self, locator_type, locator_key, time=20):
@@ -304,9 +291,7 @@ class Browser:
             )
             return element
         except Exception as ex:
-            logger.error('Error waiting for element:%s %s after %s seconds' % (locator_type, locator_key, time))
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('Error waiting for element:%s %s after %s seconds' % (locator_type, locator_key, time),ex)
 
     def wait_for_elements(self, locator_type, locator_key, time=20):
         """
@@ -327,9 +312,7 @@ class Browser:
             )
             return elements
         except Exception as ex:
-            logger.error('Error waiting for elements:%s %s after %s seconds' % (locator_type, locator_key, time))
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('Error waiting for elements:%s %s after %s seconds' % (locator_type, locator_key, time),ex)
 
     def wait_for_element_to_click(self, locator_type, locator_key, time=30):
         """
@@ -350,9 +333,7 @@ class Browser:
             return element
         except Exception as ex:
             logger.error(
-                'Error waiting for element to click:%s %s after %s seconds' % (locator_type, locator_key, time))
-            logger.error(ex)
-            traceback.print_stack()
+                'Error waiting for element to click:%s %s after %s seconds' % (locator_type, locator_key, time),ex)
 
     def take_screenshot(self, name):
         """
@@ -378,9 +359,7 @@ class Browser:
             # self.generate_pic(root)
             return picture_url, file_name
         except Exception as ex:
-            logger.error('截图出现异常！%s' % picture_url)
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('截图出现异常！%s' % picture_url,ex)
             return False
 
     def generate_pic(self, root):

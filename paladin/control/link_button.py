@@ -1,5 +1,3 @@
-import traceback
-
 from selenium.webdriver.common.by import By
 from paladin.control.common import Common
 from tool import logger
@@ -19,7 +17,5 @@ class LinkButton(Common):
             logger.info('定位到超链接:%s' % self.tag)
             return linkbtn
         except Exception as ex:
-            logger.error('定位超链接错误:%s' % self.tag)
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('定位超链接错误:%s' % self.tag,ex)
             return None

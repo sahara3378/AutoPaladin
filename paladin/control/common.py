@@ -1,5 +1,4 @@
 import time
-import traceback
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -100,9 +99,7 @@ class Common:
                     logger.info(str(self.tag) + ' 输入：' + str(key))
                 return True
             except Exception as ex:
-                logger.error('组件操作异常！')
-                logger.error(ex)
-                traceback.print_stack()
+                logger.error('组件操作异常！',ex)
                 return False
         return False
 
@@ -124,7 +121,5 @@ class Common:
                     result = self.element.get_attribute(attribute)
                 return result
             except Exception as ex:
-                logger.error('获取组件属性异常！%s' % attribute)
-                logger.error(ex)
-                traceback.print_stack()
+                logger.error('获取组件属性异常！%s' % attribute,ex)
                 return None

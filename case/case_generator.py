@@ -4,7 +4,6 @@ import os
 import shutil
 import sys
 import time
-import traceback
 import pymysql
 
 from tool import logger, configs
@@ -34,7 +33,7 @@ def _generate_script(repstr):
                 hasletter = True
                 result_line.append(s)
         result.append('\t\t\t' + ''.join(result_line))
-    result = ['\t\ttry:'] + result + ['\t\texcept Exception as ex:', '\t\t\tlogger.error(\'执行自定义脚本发生异常:%s\' % ex)',
+    result = ['\t\ttry:'] + result + ['\t\texcept Exception as ex:', '\t\t\tlogger.error(\'执行自定义脚本发生异常！\' , ex)',
                                       '\t\t\tfrom paladin.type import ExpectType',
                                       '\t\t\tself.paladin.get_expect(ExpectType.TAKESCREEN,\'%s_自定义脚本异常\' % case[\'用例编号\'])',
                                       '\t\t\tassert False']
@@ -75,9 +74,8 @@ def _get_variable(varname):
                 constant = globals().copy()
                 exec(script, constant)
                 return constant['test']()
-            except:
-                logger.error('执行自定义代码块出现异常！')
-                traceback.print_stack()
+            except Exception as ex:
+                logger.error('执行自定义代码块出现异常！',ex)
                 return None
         else:
             return varname
@@ -151,9 +149,7 @@ class CaseGenerator:
             logger.info('从数据库读取到%s条用例' % len(self.testcases))
             cur.close()
         except Exception as ex:
-            logger.cri('获取用例异常：%s', self.case_keyword)
-            logger.error(ex)
-            traceback.print_stack()
+            logger.cri('获取用例异常：%s' %self.case_keyword,ex)
 
     def generate_case(self):
         """

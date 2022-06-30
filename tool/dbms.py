@@ -1,6 +1,5 @@
 import cx_Oracle, pymysql
 import os
-import traceback
 
 from gridfs import GridFS
 from pymongo import MongoClient
@@ -27,7 +26,7 @@ def init():
         try:
             db.close()
         except Exception as ex:
-            logger.error('关闭数据库连接异常')
+            logger.error('关闭数据库连接异常',ex)
     try:
         dbtyype = configs.get_config('db', 'type')
         logger.info('初始化数据库...%s' % dbtyype)
@@ -40,9 +39,7 @@ def init():
                                 database = configs.get_config('mysql', 'db'), \
                                 charset='utf8')
     except Exception as ex:
-        logger.error('初始化数据库失败')
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('初始化数据库失败',ex)
         
 
 
@@ -71,9 +68,7 @@ def query(sql):
 
         return result
     except Exception as ex:
-        logger.error('查询数据库异常！')
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('查询数据库异常！',ex)
 
 
 def update(sql, params=None):
@@ -100,9 +95,7 @@ def update(sql, params=None):
         cur.close()
         return True
     except Exception as ex:
-        logger.error('更新数据库失败 %s' % sql)
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('更新数据库失败 %s' % sql,ex)
         return False
 
 
@@ -130,9 +123,7 @@ def del_mongo_file(filename):
 
         return True
     except Exception as ex:
-        logger.error('删除mongodb附件失败！')
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('删除mongodb附件失败！',ex)
         return False
 
 
@@ -162,9 +153,7 @@ def upload_mongo_file(filename):
             logger.info('上传了mongodb附件:%s; id:%s' % (filename, id))
             return id
     except Exception as ex:
-        logger.error('上传mongodb附件失败！%s' % filename)
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('上传mongodb附件失败！%s' % filename,ex)
         return None
 
 
@@ -188,9 +177,7 @@ def execproc(procname, params=None):
     try:
         error_c, error_m = cur.callproc(procname, params)
     except Exception as ex:
-        logger.error('执行存储过程失败 %s %s' % (procname, params))
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('执行存储过程失败 %s %s' % (procname, params),ex)
     db.commit()
     cur.close()
     return error_c.getvalue(), error_m.getvalue()

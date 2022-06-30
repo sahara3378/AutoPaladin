@@ -1,5 +1,4 @@
 import time
-import traceback
 
 from selenium.webdriver.common.by import By
 
@@ -34,9 +33,7 @@ class Notice(Common):
                         close.click()
                         logger.info('关闭消息框')
                 except Exception as ex:
-                    logger.warn('关闭消息框异常！')
-                    logger.warn(ex)
-                    traceback.print_stack()
+                    logger.warn('关闭消息框异常！',ex)
                 return element
             elif element2:
                 logger.info('定位到样式2的消息框！')

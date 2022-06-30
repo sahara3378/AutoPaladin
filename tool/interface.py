@@ -25,7 +25,7 @@ def getsession(url, login_params):
         else:
             logger.error('登录请求错误码:%s' % response.status_code)
     except Exception as ex:
-        logger.error('登录请求异常:%s' % ex)
+        logger.error('登录请求异常！' , ex)
 
 
 def send(url, params=None, session=None):
@@ -45,8 +45,7 @@ def send(url, params=None, session=None):
             logger.error('接口请求错误码:%s %s' % (response.status_code, url))
             return None
     except Exception as ex:
-        logger.error('接口请求异常:%s' % url)
-        logger.error(ex)
+        logger.error('接口请求异常:%s' % url,ex)
         return None
 
 

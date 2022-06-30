@@ -1,6 +1,4 @@
 # coding=utf-8
-import traceback
-
 from selenium.webdriver.common.by import By
 
 from paladin.control.common import Common
@@ -27,6 +25,4 @@ class Custom(Common):
                     logger.info('定位到自定义元素：%s' % self.tag)
                     return ele
         except Exception as ex:
-            logger.error('定位自定义元素出现异常！')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('定位自定义元素出现异常！',ex)

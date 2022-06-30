@@ -1,5 +1,4 @@
 import time
-import traceback
 from selenium.webdriver.common.by import By
 from paladin.control.common import Common
 from tool import logger
@@ -51,7 +50,5 @@ class DropdownSingle(Common):
                             time.sleep(1)
                             return True
         except Exception as ex:
-            logger.error('下拉框输入错误')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('下拉框输入错误',ex)
             return False

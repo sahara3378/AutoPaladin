@@ -2,7 +2,6 @@
 import os, json
 import shutil
 import time
-import traceback
 
 from tool import configs, logger, dbms
 
@@ -27,9 +26,7 @@ def restorefile():
         shutil.copytree(bak_path, ipo_path)
         logger.info('已还原备份目录下的文件')
     except Exception as ex:
-        logger.error('还原文件异常！')
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('还原文件异常！',ex)
 
 
 def get_paladin_config(key):
@@ -50,9 +47,7 @@ def get_paladin_config(key):
                 if key in c:
                     return c.split('=')[-1].replace('\n', '')
     except Exception as ex:
-        logger.error('获取帕拉丁配置文件异常！')
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('获取帕拉丁配置文件异常！',ex)
     return None
 
 
@@ -109,9 +104,7 @@ def execute_ipo_tool_cus(customstr):
         time.sleep(30)
         return True if i == 0 else False
     except Exception as ex:
-        logger.error("调用新股模拟测试工具异常！")
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error("调用新股模拟测试工具异常！",ex)
         return False
 
 
@@ -132,9 +125,7 @@ def execute_cmd(cmdstrs):
                 return False
         return True
     except Exception as ex:
-        logger.error("执行操作系统命令异常！")
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error("执行操作系统命令异常！",ex)
         return False
 
 

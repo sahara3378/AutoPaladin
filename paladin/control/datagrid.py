@@ -1,5 +1,4 @@
 import time
-import traceback
 import re
 
 from selenium.webdriver import ActionChains
@@ -28,9 +27,7 @@ class DataGrid(Common):
             if len(rts) >= self.index:
                 return rts[self.index - 1]
         except Exception as ex:
-            logger.error('找不到grid组件')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('找不到grid组件',ex)
 
     def total(self):
         """
@@ -46,9 +43,7 @@ class DataGrid(Common):
             logger.info('列表计数:%s' % cnt)
             return int(cnt)
         except Exception as ex:
-            logger.error('计数错误')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('计数错误',ex)
 
     def __check_i(self, checkbox):
         if checkbox:
@@ -63,9 +58,7 @@ class DataGrid(Common):
                     logger.info('勾选表格')
                     return True
                 except Exception as ex:
-                    logger.error('勾选表格出现异常！')
-                    logger.error(ex)
-                    traceback.print_stack()
+                    logger.error('勾选表格出现异常！',ex)
             else:
                 logger.info('表格已处于勾选状态')
         else:
@@ -93,9 +86,7 @@ class DataGrid(Common):
                         check = self.browser.find_element(By.CSS_SELECTOR, 'span.el-checkbox__input', head)
                         return self.__check_i(check)
                 except Exception as ex:
-                    logger.error('全选表格出现异常！')
-                    logger.error(ex)
-                    traceback.print_stack()
+                    logger.error('全选表格出现异常！',ex)
             else:
                 try:
                     content = self.browser.find_element(By.CSS_SELECTOR, 'div.el-table__body-wrapper', self.element)
@@ -111,9 +102,7 @@ class DataGrid(Common):
                                 self.__check_i(check)
                         return True
                 except Exception as ex:
-                    logger.error('勾选表格出现异常！')
-                    logger.error(ex)
-                    traceback.print_stack()
+                    logger.error('勾选表格出现异常！',ex)
                     return False
 
     def rowcount(self):
@@ -169,9 +158,7 @@ class DataGrid(Common):
             else:
                 return data
         except Exception as ex:
-            logger.error('获取列表数据异常！')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('获取列表数据异常！',ex)
 
 
     def has(self, key_word):
@@ -267,9 +254,7 @@ class DataGrid(Common):
                         logger.info('第%s行执行操作：%s' % (row_index, operation))
                         return self._row_opration(rows[row_index - 1], operation)
                 except Exception as ex:
-                    logger.error('表格第%s行%s操作异常！' % (row_index, operation))
-                    logger.error(ex)
-                    traceback.print_stack()
+                    logger.error('表格第%s行%s操作异常！' % (row_index, operation),ex)
             else:
                 logger.error('指定的行数row_index错误！')
         else:

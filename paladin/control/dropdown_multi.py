@@ -1,6 +1,4 @@
 import time
-import traceback
-from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from paladin.control.common import Common
@@ -71,7 +69,5 @@ class DropdownMulti(Common):
             return False
 
         except Exception as ex:
-            logger.error('下拉多选框输入错误')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('下拉多选框输入错误',ex)
             return False

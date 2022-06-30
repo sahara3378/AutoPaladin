@@ -1,7 +1,6 @@
 # coding=utf-8
 import json
 import sys, os
-import traceback
 import pymysql
 
 from tool import logger, configs
@@ -18,8 +17,7 @@ def initdb():
                              charset='utf8')
         cur = db.cursor()
     except Exception as ex:
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('初始化数据库异常！',ex)
 
 
 def updatedb(sql):
@@ -28,8 +26,7 @@ def updatedb(sql):
         cur.execute(sql)
         db.commit()
     except Exception as ex:
-        logger.error(ex)
-        traceback.print_stack()
+        logger.error('更新数据库异常！',ex)
 
 
 def update_plan(plan_id):

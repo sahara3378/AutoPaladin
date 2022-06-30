@@ -2,7 +2,6 @@ import os
 import sys
 import time
 import re
-import traceback
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -89,9 +88,7 @@ class Paladin:
                 logger.cri('帕拉丁登录失败！')
                 return False
         except Exception as ex:
-            logger.error('登录出现异常！')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('登录出现异常！',ex)
             return False
 
     def logout(self):
@@ -119,9 +116,7 @@ class Paladin:
 
             return False
         except Exception as ex:
-            logger.error('注销出现异常！')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('注销出现异常！',ex)
             return False
 
     def exit(self):
@@ -186,9 +181,7 @@ class Paladin:
             time.sleep(0.5)
             return True
         except Exception as ex:
-            logger.error('打开菜单出现异常：%s' % menu)
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('打开菜单出现异常：%s' % menu,ex)
             return False
 
     def switch_menu(self, menuname):
@@ -230,9 +223,7 @@ class Paladin:
                     logger.info('关闭菜单：%s' % menuname)
                     return True
         except Exception as ex:
-            logger.error('关闭菜单出现异常！')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('关闭菜单出现异常！',ex)
             return False
 
     def click_treenode(self, treenode):
@@ -260,9 +251,7 @@ class Paladin:
             time.sleep(0.5)
             return True
         except Exception as ex:
-            logger.error('打开树形目录出现异常：%s' % treenode)
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('打开树形目录出现异常：%s' % treenode,ex)
             return False
 
     def close_dial(self):
@@ -282,9 +271,7 @@ class Paladin:
                     return True
             return False
         except Exception as ex:
-            logger.error('关闭弹窗发生异常！')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('关闭弹窗发生异常！',ex)
             return False
 
     def switch_tab(self, tabname=None):
@@ -342,8 +329,8 @@ class Paladin:
                     self.iframe = frame.get_attribute('src')
                     logger.debug('Iframe src:%s' % self.iframe)
                     self.browser.switch(frame)
-                except:
-                    logger.error('Error occurred while trying to switch iframe!')
+                except Exception as ex:
+                    logger.error('Error occurred while trying to switch iframe!',ex)
                     pass
 
     def page_has(self, keyword, label='div'):
@@ -461,9 +448,7 @@ class Paladin:
                     return True
             return False
         except Exception as ex:
-            logger.error('上传文件错误')
-            logger.error(ex)
-            traceback.print_stack()
+            logger.error('上传文件错误',ex)
             return False
 
     def do_action(self, case):
@@ -571,9 +556,7 @@ class Paladin:
                     logger.info('获取组件为空:%s' % case_path)
                     result = False
             except Exception as ex:
-                logger.error('Action 【%s】 执行发生异常！' % case_bh)
-                logger.error(ex)
-                traceback.print_stack()
+                logger.error('Action 【%s】 执行发生异常！' % case_bh,ex)
                 result = False
 
         # Step3.获取预期结果。支持的类型见AssertType

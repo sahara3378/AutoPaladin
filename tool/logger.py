@@ -30,9 +30,13 @@ def warn(message):
     logger.warning(message)
 
 
-def error(message):
+def error(message,ex=None):
     logger.error(message)
+    if ex:
+        logger.exception(ex)
 
 
-def cri(message):
+def cri(message,ex=None):
     logger.critical(message)
+    if ex:
+        logger.exception(ex)
